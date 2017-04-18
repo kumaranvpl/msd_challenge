@@ -3,21 +3,39 @@ import sys
 
 
 def main(log_file, query_file):
+    # Initialize log_ips set
     log_ips = set()
-    with open(log_file) as f:
-        for line in f:
-            l = line.rstrip()
-            if l:
-                log_ips.add(l.split()[2])
+
+    try:
+        # Open log_file
+        with open(log_file) as f:
+            # Read line by line
+            for line in f:
+                # Strip whitespaces and blank lines
+                l = line.rstrip()
+                if l:
+                    # Add ip address to set
+                    log_ips.add(l.split()[2])
+    except Exception as e:
+        print "Error occurred %s" % str(e)
+
     #print log_ips
-    with open(query_file) as f:
-        for line in f:
-            l = line.rstrip()
-            if l:
-                if l in log_ips:
-                    print 1
-                else:
-                    print 0
+
+    try:
+        # Open query_file
+        with open(query_file) as f:
+            # Read line by line
+            for line in f:
+                # Strip whitespaces and blank lines
+                l = line.rstrip()
+                if l:
+                    # Check ip is in set
+                    if l in log_ips:
+                        print 1
+                    else:
+                        print 0
+    except Exception as e:
+        print "Error occurred %s" % str(e)
 
 
 if __name__ == "__main__":
